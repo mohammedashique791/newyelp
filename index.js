@@ -96,7 +96,7 @@ app.all('*', (req, res, next)=>{
 
 app.use((err, req, res, next)=>{
     const {statusCode = 500, message = 'Oh No Error'} = err;
-    req.flash('error', err.message);
+    req.flash('error');
     res.redirect('/campgrounds');
 })
 app.listen(port, ()=>{
