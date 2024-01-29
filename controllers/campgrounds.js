@@ -4,6 +4,7 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.mapbox_token;
 const geoCoder = mbxGeocoding({accessToken: mapBoxToken});
 const User = require('../models/user');
+const flash = require('connect-flash');
 
 module.exports.index = async(req, res)=>{
     const fonozzi = await campGround.find({});

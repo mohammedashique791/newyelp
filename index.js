@@ -22,7 +22,7 @@ const userRoute = require('./routes/user');
 const {storeReturnTo} = require('./storeprogress.js');
 const databaseUrl = process.env.DB_URL;
 const secret = process.env.secret;
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 mongoose.connect(databaseUrl || 'mongodb://127.0.0.1:27017/yelpCamp')
 .then(()=>{
     console.log("Mongo Database Connected");
@@ -96,9 +96,9 @@ app.all('*', (req, res, next)=>{
 
 app.use((err, req, res, next)=>{
     const {statusCode = 500, message = 'Oh No Error'} = err;
-    req.flash('error');
+    req.flash('error', err.message);
     res.redirect('/campgrounds');
 })
 app.listen(port, ()=>{
-    console.log("Serving on PORT 3000");
+    console.log(`Serving on PORT ${port}`);
 })
