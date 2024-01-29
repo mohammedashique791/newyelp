@@ -9,7 +9,7 @@ module.exports.newReview = async(req, res)=>{
     myCamp.review.push(review);
     review.save();
     myCamp.save();
-    req.flash('success', 'Successfully created a Review!');
+    // req.flash('success', 'Successfully created a Review!');
     res.redirect(`/campgrounds/${id}`);
 }
 
@@ -18,6 +18,6 @@ module.exports.reviewDelete = async(req, res)=>{
     const{id, revID} = req.params;
     await campGround.findByIdAndUpdate(id, {$pull: {review: revID}});
     await Review.findByIdAndDelete(revID);
-    req.flash('success', 'Successfully Deleted a Review!');
+    // req.flash('success', 'Successfully Deleted a Review!');
     res.redirect(`/campgrounds/${id}`);
 }

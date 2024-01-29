@@ -13,12 +13,12 @@ module.exports.register = async(req, res, next)=>{
         if(err){
             next(err)
         }
-        req.flash('success', 'Welcome Home');
+        // req.flash('success', 'Welcome Home');
     res.redirect('/campgrounds');
     })  
     }
     catch(e){
-        req.flash('error', e.message);
+        // req.flash('error', e.message);
         res.redirect('/register');
     }
 }
@@ -28,7 +28,7 @@ module.exports.logout = (req, res, next)=>{
         if(err){
             return next(err);
         }
-        req.flash('success', 'Good Bye!');
+        // req.flash('success', 'Good Bye!');
         res.redirect('/campgrounds');
     });
     
@@ -67,14 +67,14 @@ module.exports.favourites = async(req, res, next)=>{
         for(let c of result.favourites){
             if(c.title === myCamp.title){
                 isFound = true;
-                req.flash('success', 'You Already added this item to your Favourites');
+                // req.flash('success', 'You Already added this item to your Favourites');
                 return res.redirect(`/campgrounds/${kali}`);
             }
         }}
         if(!isFound){
             result.favourites.push(kali);
             result.save();
-            req.flash('success', 'Successfully Added to Favourites');
+            // req.flash('success', 'Successfully Added to Favourites');
         res.redirect(`/campgrounds/${kali}`); 
         }
 }
@@ -83,7 +83,7 @@ else{
     if(req.user){
     const sumu = req.params.id;
     await User.findByIdAndUpdate(req.user._id, {$pull: {favourites: sumu}});
-    req.flash('success', 'Successfully removed from Favourites!');
+    // req.flash('success', 'Successfully removed from Favourites!');
     res.redirect(`/campgrounds/${sumu}`);
     }
 }

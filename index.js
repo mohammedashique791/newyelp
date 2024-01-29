@@ -12,7 +12,7 @@ const methodOverride = require('method-override');
 const campRoutes = require('./routes/campgrounds.js');
 const AppError = require('./AppError');
 const mongoose = require('mongoose');
-const flash = require('connect-flash');
+// const flash = require('connect-flash');
 const reviewRoute = require('./routes/review.js');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -60,7 +60,7 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
-app.use(flash());
+// app.use(flash());
 app.use(helmet({contentSecurityPolicy: false}));  
 app.use(passport.initialize());
 app.use(passport.session());
@@ -70,8 +70,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next)=>{
     res.locals.fonzzi = req.user;
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
+    // res.locals.success = req.flash('success');
+    // res.locals.error = req.flash('error');
     next();
 })
 
@@ -82,11 +82,6 @@ app.use('/campground', reviewRoute);
 app.use('/', userRoute);
 
 
-const wrapAsync = function(fn){
-    return ((req, res, next)=>{
-        fn(req, res, next).catch(err=> next(err));
-    })
-}
 
 
 app.all('*', (req, res, next)=>{
@@ -96,7 +91,7 @@ app.all('*', (req, res, next)=>{
 
 app.use((err, req, res, next)=>{
     const {statusCode = 500, message = 'Oh No Error'} = err;
-    req.flash('error', err.message);
+    // req.flash('error', err.message);
     res.redirect('/campgrounds');
 })
 app.listen(port, ()=>{
